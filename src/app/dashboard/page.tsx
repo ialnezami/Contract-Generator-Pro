@@ -5,6 +5,7 @@ import { useContractStore } from '@/store/contract-store'
 import { apiService } from '@/lib/api'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import Navigation from '@/components/ui/navigation'
 import { 
   FileText, 
   Plus, 
@@ -133,21 +134,25 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-gray-600">Welcome back, {user.name}</p>
+      <Navigation />
+      
+      {/* Main Content */}
+      <div className="lg:pl-64 pt-16">
+        {/* Header */}
+        <header className="bg-white shadow-sm border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center py-6">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+                <p className="text-gray-600">Welcome back, {user.name}</p>
+              </div>
+              <Button className="flex items-center gap-2">
+                <Plus className="w-4 h-4" />
+                New Contract
+              </Button>
             </div>
-            <Button className="flex items-center gap-2">
-              <Plus className="w-4 h-4" />
-              New Contract
-            </Button>
           </div>
-        </div>
-      </header>
+        </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
