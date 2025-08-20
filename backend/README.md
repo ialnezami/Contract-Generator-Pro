@@ -6,10 +6,16 @@ A powerful Laravel 10 backend API for the Contract Generator Pro application, pr
 
 - **User Authentication & Authorization**: Laravel Sanctum-based API authentication with role-based permissions
 - **Contract Management**: Full CRUD operations for contracts with variable substitution
-- **Template System**: Flexible contract templates with customizable variables
-- **PDF Generation**: Automatic PDF generation using DomPDF
+- **Template System**: Flexible contract templates with customizable variables and categories
+- **PDF Generation**: Professional PDF generation using DomPDF with customizable templates
+- **Contract Workflow System**: Complete lifecycle management with approvals, signing, and renewal
+- **Advanced Variable System**: Type-safe variable replacement with validation and constraints
+- **Template Management**: Categories, ratings, search, filtering, and cloning capabilities
 - **Role-Based Access Control**: Comprehensive permission system using Spatie Laravel Permission
 - **API-First Design**: RESTful API endpoints for frontend integration
+- **Advanced Security**: Rate limiting, request logging, and comprehensive audit trails
+- **Performance Optimization**: Redis caching, query optimization, and performance monitoring
+- **Professional Infrastructure**: Enterprise-grade error handling and response formatting
 - **Database Seeding**: Sample data for development and testing
 
 ## 🛠️ Technology Stack
@@ -20,15 +26,21 @@ A powerful Laravel 10 backend API for the Contract Generator Pro application, pr
 - **Authentication**: Laravel Sanctum
 - **Permissions**: Spatie Laravel Permission
 - **PDF Generation**: DomPDF
+- **Caching**: Redis
 - **Testing**: PHPUnit
 - **Code Quality**: Laravel Pint
+- **Performance**: Query optimization, caching strategies
+- **Security**: Rate limiting, audit trails, request logging
 
 ## 📋 Requirements
 
 - PHP 8.2 or higher
 - Composer
 - MySQL 8.0+ or PostgreSQL 15+
-- Redis (optional, for caching)
+- Redis (recommended, for caching and performance)
+- Node.js 16+ (for frontend assets compilation)
+- 2GB+ RAM (for optimal performance)
+- 10GB+ disk space
 
 ## 🚀 Quick Start
 
@@ -51,6 +63,26 @@ DB_PORT=3306
 DB_DATABASE=contract_generator_pro
 DB_USERNAME=root
 DB_PASSWORD=
+
+# Redis Configuration (recommended)
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+# Cache Configuration
+CACHE_DRIVER=redis
+QUEUE_CONNECTION=redis
+SESSION_DRIVER=redis
+
+# Mail Configuration (for notifications)
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="noreply@contractgeneratorpro.com"
+MAIL_FROM_NAME="${APP_NAME}"
 ```
 
 ### 3. Generate Application Key
@@ -75,6 +107,19 @@ php artisan db:seed
 
 ```bash
 php artisan serve
+```
+
+### 7. Start Redis (for caching)
+
+```bash
+# On macOS with Homebrew
+brew services start redis
+
+# On Ubuntu/Debian
+sudo systemctl start redis-server
+
+# On Windows with WSL
+sudo service redis-server start
 ```
 
 The API will be available at `http://localhost:8000/api`
@@ -128,6 +173,16 @@ curl -X POST http://localhost:8000/api/login \
 - `POST /api/contracts/{id}/generate-pdf` - Generate PDF
 - `POST /api/contracts/{id}/sign` - Sign contract
 - `GET /api/contracts/statistics` - Get statistics
+
+#### Contract Workflow
+- `POST /api/contracts/{id}/change-status` - Change contract status
+- `POST /api/contracts/{id}/request-approval` - Request contract approval
+- `POST /api/contracts/{id}/approve` - Approve contract
+- `POST /api/contracts/{id}/reject` - Reject contract
+- `POST /api/contracts/{id}/renew` - Renew expired contract
+- `GET /api/contracts/{id}/workflow-history` - Get workflow history
+- `GET /api/contracts/{id}/approvals` - Get approval status
+- `GET /api/contracts/expiring-soon` - Get contracts expiring soon
 
 #### Templates
 - `POST /api/templates` - Create template
